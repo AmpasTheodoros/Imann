@@ -33,7 +33,7 @@
         </li>
 
         <li>
-          <a href="">Members</a>
+          <a href="{{ url_for('register') }}">Members</a>
         </li>
       </ul>
     </nav>
@@ -42,7 +42,6 @@
       <section id="section__one">
         <div class="container">
           <h2>ORDER</h2>
-
           <h3>
             We deliver quality produce from our farm to your home, from our
             family to yours – with love. Our selection is seasonal, so get in
@@ -55,6 +54,8 @@
 
       <section id="section__two">
         <h2>OUR PRODUCTS</h2>
+        <!-- Add this button somewhere suitable in your products.html -->
+        <a href="{{ url_for('add_product_form') }}" class="add-product-button">Add a Product</a>
         <div class="container">
           <h3>Fruits & Veggies</h3>
             <!-- Loop through products and display them -->
@@ -63,6 +64,11 @@
                 <img src="{{ product['image_url'] }}" alt="{{ product['name'] }}" />
                 <h4>{{ product['name'] }}</h4>
                 <p>${{ product['price'] }}</p>
+                <form action="{{ url_for('add_to_cart') }}" method="post">
+                  <input type="hidden" name="product_id" value="{{ product.id }}">
+                  <input type="hidden" name="quantity" value="1">
+                  <button type="submit">Add to Cart</button>
+              </form>
             </div>
             {% endfor %}
         </div>        
